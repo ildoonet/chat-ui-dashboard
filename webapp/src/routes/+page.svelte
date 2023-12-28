@@ -1,4 +1,8 @@
 <script>
+    const currentUrl = new URL(window.location.href);
+    const protocol = currentUrl.protocol;
+    const host = currentUrl.hostname;
+
 	import { onMount } from 'svelte';
 	import UserList from './UserList.svelte';
 	import ConversationList from './ConversationList.svelte';
@@ -10,12 +14,12 @@
 	let selectedConversation = null;
 
 	const fetchUsers = async () => {
-	  const response = await fetch('/users');
+	  const response = await fetch(`${protocol}//${host}:8081/users`);
 	  users = await response.json();
 	};
   
 	const fetchConversations = async (userId) => {
-	  const response = await fetch(`/conversations?user_id=${userId}`);
+	  const response = await fetch(`${protocol}//${host}:8081/conversations?user_id=${userId}`);
 	  conversations = await response.json();
 	};
   

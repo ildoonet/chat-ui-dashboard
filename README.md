@@ -30,20 +30,20 @@ This project provides a web-based interface to view and manage chat logs from [H
   pip install -r requirements.txt
   ```
 - Start the backend server:
-```
-python server.py mongo://[your-mongodb-url]
-```
+  ```
+  python server.py mongo://[your-mongodb-url]
+  ```
 
 3. Set Up Frontend Application:
 - Navigate to the frontend directory.
 - Install the required dependencies:
-```
-npm install
-```
+  ```
+  npm install
+  ```
 - Start the frontend application:
-```
-npm run dev
-```
+  ```
+  npm run dev
+  ```
 
 ## Usage
 After starting both the backend and frontend, access the web application through your browser at http://localhost:5000 (or the configured port). Navigate through the interface to view chat logs per user.

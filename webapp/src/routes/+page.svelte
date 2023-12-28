@@ -10,12 +10,12 @@
 	let selectedConversation = null;
 
 	const fetchUsers = async () => {
-	  const response = await fetch('http://127.0.0.1:8081/users');
+	  const response = await fetch('/users');
 	  users = await response.json();
 	};
   
 	const fetchConversations = async (userId) => {
-	  const response = await fetch(`http://127.0.0.1:8081/conversations?user_id=${userId}`);
+	  const response = await fetch(`/conversations?user_id=${userId}`);
 	  conversations = await response.json();
 	};
   

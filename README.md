@@ -36,6 +36,7 @@ This project provides a web-based interface to view and manage chat logs from [H
 
 3. Set Up Frontend Application:
 - Navigate to the frontend directory.
+  ```cd webapp```
 - Install the required dependencies:
   ```
   npm install

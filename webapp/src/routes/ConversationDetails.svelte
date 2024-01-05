@@ -11,6 +11,8 @@
 {#if selectedConversation}
   <div>
     <h2>대화 상세 내용</h2>
+    <p class="date">{selectedConversation.createdAt}</p>
+
     <ul>
       {#each selectedConversation.messages as message}
         <li>
@@ -25,6 +27,9 @@
 {/if}
   
   <style>
+    .date {
+      margin-bottom: 20px; /* 날짜와 메시지 목록 간의 간격 */
+    }
     ul {
       list-style-type: none;
       padding: 0;

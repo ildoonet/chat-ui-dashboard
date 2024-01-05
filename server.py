@@ -4,6 +4,7 @@ from flask_caching import Cache
 from pymongo import MongoClient, DESCENDING
 from bson import ObjectId
 import argparse
+from collections import OrderedDict
 
 
 # 명령줄 인자 파싱
@@ -34,11 +35,31 @@ def convert_objectid_to_str(item):
     return item
 
 @app.route('/users', methods=['GET'])
-@cache.cached(timeout=300)  # 5분 캐시
+# @cache.cached(timeout=300)
 def get_users():
-    users = db.users.find().sort("updatedAt", DESCENDING)
+    # users 컬렉션과 sessions 컬렉션을 조인하여 사용자 정보와 최신 세션 정보를 가져옴
+    pipeline = [
+        {
+            '$lookup': {
+                'from': 'sessions',  # 조인할 컬렉션
+                'localField': '_id',  # users 컬렉션의 필드
+                'foreignField': 'userId',  # sessions 컬렉션의 필드
+                'as': 'session'  # 결과를 저장할 필드 이름
+            }
+        },
+        { '$unwind': '$session' },  # 각 문서에 대해 session 배열을 풀어서 단일 문서로 만듦
+        { '$sort': { 'session.updatedAt': DESCENDING } },  # session의 updatedAt을 기준으로 정렬
+        { '$project': { 'session': 0 } }  # session 정보는 제외하고 결과 반환
+    ]
+    users = db.users.aggregate(pipeline)
     user_list = [convert_objectid_to_str(user) for user in users]
-    return jsonify(user_list)
+
+    new_user_list = []
+    for x in user_list:
+        if x not in new_user_list:
+            new_user_list.append(x)
+
+    return jsonify(new_user_list)
 
 @app.route('/conversations', methods=['GET'])
 def get_conversations():

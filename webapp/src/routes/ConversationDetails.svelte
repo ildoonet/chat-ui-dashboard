@@ -4,13 +4,16 @@
 
   // 마크다운을 HTML로 변환하는 함수
   const renderMarkdown = (markdownText) => {
-    return marked(markdownText);
+    // 개행 문자를 <br/>로 변환
+    const convertedText = markdownText.replace(/\n/g, '<br/>');
+    // 변환된 텍스트를 마크다운으로 렌더링
+    return marked(convertedText);
   };
 </script>
 
 {#if selectedConversation}
   <div>
-    <h2>대화 상세 내용</h2>
+    <h2>{selectedConversation.model}</h2>
     <p class="date">{selectedConversation.createdAt}</p>
 
     <ul>

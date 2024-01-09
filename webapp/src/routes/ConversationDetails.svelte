@@ -5,9 +5,10 @@
   // 마크다운을 HTML로 변환하는 함수
   const renderMarkdown = (markdownText) => {
     // 개행 문자를 <br/>로 변환
-    const convertedText = markdownText.replace(/\n/g, '<br/>');
+    // const convertedText = markdownText.replace(/\n/g, '<br/>');
+    const convertedText = markdownText;
     // 변환된 텍스트를 마크다운으로 렌더링
-    return marked(convertedText);
+    return marked.parse(convertedText);
   };
 </script>
 
@@ -20,7 +21,9 @@
       {#each selectedConversation.messages as message}
         <li>
           <strong>{message.from}: </strong>
-          <p>{@html renderMarkdown(message.content)}</p>
+          <article class="prose prose-slate">
+            {@html renderMarkdown(message.content)}
+          </article>
         </li>
       {/each}
     </ul>

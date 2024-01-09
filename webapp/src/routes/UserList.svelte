@@ -2,21 +2,29 @@
   export let users = [];
   export let onUserSelect;
   let selectedUserId = null;
+  let searchTerm = ''; // Variable to store the search term
+
+  // Reactive statement for filtering users
+  $: filteredUsers = searchTerm
+    ? users.filter(user => user.email.toLowerCase().includes(searchTerm.toLowerCase()))
+    : users;
 
   const selectUser = (user) => {
-    selectedUserId = user._id; // 선택된 사용자의 ID를 저장
+    selectedUserId = user._id; // Save the ID of the selected user
     if (onUserSelect) {
       onUserSelect(user);
     }
   };
 </script>
 
+<input type="text" placeholder="Search by email..." bind:value={searchTerm} />
+
 <ul>
   <li on:click={() => selectUser({_id: ''})}>
     All Users
   </li>
-  
-  {#each users as user}
+
+  {#each filteredUsers as user}
     <li 
       class:selected="{user._id === selectedUserId}" 
       on:click={() => selectUser(user)}>
@@ -34,7 +42,6 @@
     background-color: #f0f0f0;
   }
   .selected {
-    background-color: lightblue; /* 선택된 항목에 대한 배경색 변경 */
+    background-color: lightblue;
   }
 </style>
-

@@ -17,7 +17,13 @@
   };
 </script>
 
-<input type="text" placeholder="Search by email..." bind:value={searchTerm} />
+<input 
+  type="text" 
+  placeholder="Search by email..." 
+  bind:value={searchTerm} 
+  class="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+/>
+
 
 <ul>
   <li on:click={() => selectUser({_id: ''})}>

@@ -1,5 +1,7 @@
 # chat-ui-dashboard
 
+![Screenshot](screenshot.jpg)
+
 ## Overview
 This project provides a web-based interface to view and manage chat logs from [HuggingFace's ChatUI](https://github.com/huggingface/chat-ui). It is designed to interact seamlessly with the ChatUI, offering an intuitive way to access and analyze conversation data. The application includes a backend server for data handling and a responsive frontend built with Svelte.
 
